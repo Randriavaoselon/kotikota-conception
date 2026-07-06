@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import {
@@ -18,7 +18,9 @@ import imgTeam2 from "../assets/kotikota-team2.webp";
 import imgTeam3 from "../assets/kotikota-team3.webp";
 
 const Apropos = ({ openSidebarApropos }) => {
-  const images = [imgTeam1, imgTeam2, imgTeam3];
+  // useMemo : évite de recréer le tableau à chaque render
+  const images = useMemo(() => [imgTeam1, imgTeam2, imgTeam3], []);
+
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -37,6 +39,11 @@ const Apropos = ({ openSidebarApropos }) => {
     return () => observer.disconnect();
   }, []);
 
+  // useCallback : évite de recréer la fonction à chaque render
+  const handleOpenSidebar = useCallback(() => {
+    openSidebarApropos("contact");
+  }, [openSidebarApropos]);
+
   return (
     <section
       id="about"
@@ -50,7 +57,8 @@ const Apropos = ({ openSidebarApropos }) => {
               modules={[Autoplay, EffectFade]}
               effect="fade"
               loop={true}
-              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              // Autoplay actif seulement si la section est visible à l'écran
+              autoplay={isVisible ? { delay: 3000, disableOnInteraction: false } : false}
               className="apropos__slider"
             >
               {images.map((img, index) => (
@@ -59,6 +67,9 @@ const Apropos = ({ openSidebarApropos }) => {
                     src={img}
                     alt={`Slide ${index}`}
                     className="apropos__image"
+                    width="600"
+                    height="280"
+                    loading="lazy"
                   />
                 </SwiperSlide>
               ))}
@@ -117,7 +128,7 @@ const Apropos = ({ openSidebarApropos }) => {
 
               <BoutonSavoirPlus
                 icon={FaArrowRight}
-                onClick={() => openSidebarApropos("contact")}
+                onClick={handleOpenSidebar}
                 className="apropos__btn"
               />
             </div>

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { FiHelpCircle } from "react-icons/fi";
 import '../styles/ButtonStandar.css';
 
@@ -8,4 +9,4 @@ const ButtonStandar = ({ text, onClick }) => (
   </button>
 );
 
-export default ButtonStandar;
+export default memo(ButtonStandar);

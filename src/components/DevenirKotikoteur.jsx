@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import imgKotikoteur from "../assets/imgDevenirKotikota.png";
+import { useEffect, useRef, useState, useMemo } from "react";
+import imgKotikoteur from "../assets/imgDevenirKotikota.webp";
 import imgFlexibilite from "../assets/picto-acteur.webp";
 import imgRemuneration from "../assets/picto-connect.webp";
 import imgCommunaute from "../assets/picto-eco.webp";
@@ -25,33 +25,40 @@ const DevenirKotikoteur = () => {
     return () => observer.disconnect();
   }, []);
 
-  const leftCards = [
-    {
-      title: "Soyez acteur du changement",
-      desc: "Changez la vie des autres",
-      img: imgFlexibilite,
-    },
-    {
-      title: "Des projets vérifiés",
-      desc: "Rassurez vos contributeurs",
-      img: imgRemuneration,
-    },
-  ];
+  // useMemo : ces tableaux ne changent jamais, on évite de les recréer à chaque render
+  const leftCards = useMemo(
+    () => [
+      {
+        title: "Soyez acteur du changement",
+        desc: "Changez la vie des autres",
+        img: imgFlexibilite,
+      },
+      {
+        title: "Des projets vérifiés",
+        desc: "Rassurez vos contributeurs",
+        img: imgRemuneration,
+      },
+    ],
+    []
+  );
 
-  const rightCards = [
-    {
-      title: "Zéro empreinte carbone",
-      desc: "Opérations 100% en ligne",
-      img: imgCommunaute,
-    },
-    {
-      title: "Mobile money ou Carte bancaire",
-      desc: "C’est vous qui choisissez",
-      img: imgAccompagnement,
-    },
-  ];
+  const rightCards = useMemo(
+    () => [
+      {
+        title: "Zéro empreinte carbone",
+        desc: "Opérations 100% en ligne",
+        img: imgCommunaute,
+      },
+      {
+        title: "Mobile money ou Carte bancaire",
+        desc: "C’est vous qui choisissez",
+        img: imgAccompagnement,
+      },
+    ],
+    []
+  );
 
-  const badges = ["Solidarité", "Confiance", "Simplicité"];
+  const badges = useMemo(() => ["Solidarité", "Confiance", "Simplicité"], []);
 
   return (
     <section
@@ -80,6 +87,9 @@ const DevenirKotikoteur = () => {
                   src={card.img}
                   alt={card.title}
                   className="devenir-kotikoteur__card-img"
+                  width="64"
+                  height="64"
+                  loading="lazy"
                 />
               </div>
             ))}
@@ -91,6 +101,9 @@ const DevenirKotikoteur = () => {
                 src={imgKotikoteur}
                 alt="Devenir Kotikoteur"
                 className="devenir-kotikoteur__image"
+                width="420"
+                height="420"
+                loading="lazy"
               />
               <div className="devenir-kotikoteur__badges">
                 {badges.map((badge, index) => (
@@ -117,6 +130,9 @@ const DevenirKotikoteur = () => {
                   src={card.img}
                   alt={card.title}
                   className="devenir-kotikoteur__card-img"
+                  width="64"
+                  height="64"
+                  loading="lazy"
                 />
                 <div className="devenir-kotikoteur__card-content">
                   <h4 className="devenir-kotikoteur__card-title">

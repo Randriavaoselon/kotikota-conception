@@ -1,3 +1,4 @@
+import { memo } from "react";
 
 const BoutonSavoirPlus = ({
   text = "Savoir plus",
@@ -7,15 +8,20 @@ const BoutonSavoirPlus = ({
   icon: Icon,
   iconPosition = "right",
 }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <a
       href="#"
       className={`btn-savoir-plus ${className}`.trim()}
       style={style}
-      onClick={(e) => {
-        e.preventDefault();
-        if (onClick) onClick();
-      }}
+      onClick={handleClick}
     >
       {Icon && iconPosition === "left" && (
         <Icon className="btn-savoir-plus__icon" />
@@ -30,4 +36,4 @@ const BoutonSavoirPlus = ({
   );
 };
 
-export default BoutonSavoirPlus;
+export default memo(BoutonSavoirPlus);

@@ -1,52 +1,67 @@
-import { useState } from 'react'
+import { useCallback, useState } from "react";
 
-import Navbar from './components/Navbar'
-import Home from './components/Home'
-import ServiceDescription from './components/ServiceDescription'
-import TitreDevenirKotikoteur from './components/TitreDevenirKotikoteur'
-import DevenirKotikoteur from './components/DevenirKotikoteur'
-import EtapeDevenirKotikoteur from './components/EtapeDevenirKotikoteur'
-import TitreNosCagnottes from './components/TitreNosCagnottes'
-import NosCagnottes from './components/NosCagnottes'
-import Informations from './components/Informations'
-import Footer from './components/Footer'
-import CopyRight from './components/CopyRight'
-import BoutonUp from './components/BoutonUp'
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import ServiceDescription from "./components/ServiceDescription";
+import TitreDevenirKotikoteur from "./components/TitreDevenirKotikoteur";
+import DevenirKotikoteur from "./components/DevenirKotikoteur";
+import EtapeDevenirKotikoteur from "./components/EtapeDevenirKotikoteur";
+import TitreNosCagnottes from "./components/TitreNosCagnottes";
+import NosCagnottes from "./components/NosCagnottes";
+import Informations from "./components/Informations";
+import Footer from "./components/Footer";
+import CopyRight from "./components/CopyRight";
+import BoutonUp from "./components/BoutonUp";
 import KotiKotaModal from "./components/KotiKotaModal";
 import Sidebar from "./components/Sidebar";
 
-import './App.css'
+import "./App.css";
 
 function App() {
-
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarType, setSidebarType] = useState("contact");
   const [isKotiKotaModalOpen, setKotiKotaModalOpen] = useState(false);
 
-  const openSidebar = (type) => {
+  /* =========================
+     SIDEBAR LOGIC OPTIMISÉE
+  ========================= */
+  const openSidebar = useCallback((type) => {
     setSidebarType(type);
     setSidebarOpen(true);
-  };
+  }, []);
 
-  const closeSidebar = () => setSidebarOpen(false);
+  const closeSidebar = useCallback(() => {
+    setSidebarOpen(false);
+  }, []);
 
-  const handleContactFromModal = () => {
+  /* =========================
+     MODAL HANDLERS
+  ========================= */
+  const openKotiKotaModal = useCallback(() => {
+    setKotiKotaModalOpen(true);
+  }, []);
+
+  const closeKotiKotaModal = useCallback(() => {
+    setKotiKotaModalOpen(false);
+  }, []);
+
+  const handleContactFromModal = useCallback(() => {
     setKotiKotaModalOpen(false);
     openSidebar("contact");
-  };
+  }, [openSidebar]);
 
-  const handleConnexionFromModal = () => {
+  const handleConnexionFromModal = useCallback(() => {
     setKotiKotaModalOpen(false);
     openSidebar("auth");
-  };
+  }, [openSidebar]);
 
   return (
     <>
-      <Navbar onOpenSidebar={openSidebar}/>
+      <Navbar onOpenSidebar={openSidebar} />
 
       <KotiKotaModal
         isOpen={isKotiKotaModalOpen}
-        onClose={() => setKotiKotaModalOpen(false)}
+        onClose={closeKotiKotaModal}
         onContactClick={handleContactFromModal}
         onConnexionClick={handleConnexionFromModal}
       />
@@ -58,21 +73,22 @@ function App() {
       />
 
       <Home
-        onOpenKotiKotaModal={() => setKotiKotaModalOpen(true)}
+        onOpenKotiKotaModal={openKotiKotaModal}
         onOpenSidebar={openSidebar}
       />
-      <ServiceDescription ServiceOpenSideBarContact={openSidebar}/>
-      <TitreDevenirKotikoteur/>
-      <EtapeDevenirKotikoteur/>
-      <DevenirKotikoteur/>
-      <TitreNosCagnottes/>
-      <NosCagnottes/>
-      <Informations openSideBarConnexion={openSidebar}/>
-      <Footer/>
-      <CopyRight/>
-      <BoutonUp/>
+
+      <ServiceDescription ServiceOpenSideBarContact={openSidebar} />
+      <TitreDevenirKotikoteur />
+      <EtapeDevenirKotikoteur />
+      <DevenirKotikoteur />
+      <TitreNosCagnottes />
+      <NosCagnottes />
+      <Informations openSideBarConnexion={openSidebar} />
+      <Footer />
+      <CopyRight />
+      <BoutonUp />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

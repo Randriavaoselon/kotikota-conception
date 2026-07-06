@@ -1,36 +1,39 @@
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { FiAward, FiUsers, FiCheckCircle } from "react-icons/fi";
 import SimpleCounter from "./SimpleCounter";
-import { useEffect, useRef, useState } from "react";
-import {
-  FiAward,
-  FiUsers,
-  FiCheckCircle,
-} from "react-icons/fi";
 import "../styles/NombreGeneral.css";
 
 const NombreGeneral = () => {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          entry.target.classList.add("is-visible");
-        }
-      },
-      { threshold: 0.3 }
-    );
+  // Configuration des statistiques centralisée
+  const stats = useMemo(() => [
+    { icon: <FiAward />, end: 489, desc: "CAGNOTTES" },
+    { icon: <FiUsers />, end: 2090, desc: "PARTICIPANTS" },
+    { icon: <FiCheckCircle />, end: 50, desc: "CAGNOTTES EN COURS" },
+  ], []);
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+  // Callback stable pour l'intersection observer
+  const handleIntersection = useCallback(([entry]) => {
+    if (entry.isIntersecting) {
+      setIsVisible(true);
+      entry.target.classList.add("is-visible");
+    }
   }, []);
 
-  const stats = [
-    { icon: <FiAward />, title: <SimpleCounter end={489} text="" isVisible={isVisible} />, desc: "CAGNOTTES" },
-    { icon: <FiUsers />, title: <SimpleCounter end={2090} text="" isVisible={isVisible} />, desc: "PARTICIPANTS" },
-    { icon: <FiCheckCircle />, title: <SimpleCounter end={50} text="" isVisible={isVisible} />, desc: "CAGNOTTES EN COURS" },
-  ];
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.3,
+    });
+
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, [handleIntersection]);
 
   return (
     <section className="evaluation-section" ref={sectionRef}>
@@ -40,7 +43,9 @@ const NombreGeneral = () => {
             <div key={index} className="eval-card">
               <div className="icon-side">{stat.icon}</div>
               <div className="text-side">
-                <h4>{stat.title}</h4>
+                <h4>
+                  <SimpleCounter end={stat.end} text="" isVisible={isVisible} />
+                </h4>
                 <p>{stat.desc}</p>
               </div>
             </div>

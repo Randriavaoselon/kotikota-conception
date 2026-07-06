@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo, memo } from "react";
 import {
   FiChevronLeft,
   FiChevronRight,
@@ -19,8 +19,12 @@ import imgCagnotte4 from "../assets/cagnotte-4.webp";
 import imgCagnotte5 from "../assets/cagnotte-5.webp";
 import imgCagnotte6 from "../assets/cagnotte-6.webp";
 
-const AnimatedNumber = ({ value, isVisible }) => {
+/* =======================
+   ANIMATED NUMBER OPTIMISÉ
+======================= */
+const AnimatedNumber = memo(({ value, isVisible }) => {
   const [count, setCount] = useState(0);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -28,97 +32,113 @@ const AnimatedNumber = ({ value, isVisible }) => {
     const duration = 1200;
     const steps = 30;
     const increment = value / steps;
+
     let current = 0;
     let step = 0;
 
-    const timer = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       step++;
       current += increment;
+
       if (step >= steps) {
         setCount(value);
-        clearInterval(timer);
+        clearInterval(intervalRef.current);
       } else {
         setCount(Math.round(current));
       }
     }, duration / steps);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(intervalRef.current);
   }, [isVisible, value]);
 
   return <>{count}</>;
-};
+});
 
+/* =======================
+   DATA STABLE
+======================= */
+const CAGNOTTES_DATA = [
+  {
+    img: imgCagnotte1,
+    title: "BAREA U23 Miara milalao",
+    desc: "Miarahaba atsika rehetra mpitia baolina kitra Malagasy",
+    jours: 12,
+    participants: 48,
+    montant: 850000,
+  },
+  {
+    img: imgCagnotte2,
+    title: "UN COUP de POUCE en pleine CRISE pour les POTES",
+    desc: "TeenKetrika.com est un site web qui a pour mission d'accompagner les jeunes",
+    jours: 20,
+    participants: 63,
+    montant: 1200000,
+  },
+  {
+    img: imgCagnotte3,
+    title: "URGENT: Soutenons Antsa pour sa greffe de moelle",
+    desc: "Je m'appelle Naly Antsaniaina RAZAFINDRALAMBO et j'ai 27 ans.",
+    jours: 8,
+    participants: 25,
+    montant: 430000,
+  },
+  {
+    img: imgCagnotte4,
+    title: "100 Livres anglais attentand à la bibliotheque à Tana !",
+    desc: "85% des jeunes malgache n'ont jamais tune un livre Ecrit entierement anglais",
+    jours: 15,
+    participants: 37,
+    montant: 610000,
+  },
+  {
+    img: imgCagnotte5,
+    title: "Sortie récréative SC",
+    desc: "On organise une petite sortie en collegue pour partager un bon moment ensemble.",
+    jours: 5,
+    participants: 19,
+    montant: 275000,
+  },
+  {
+    img: imgCagnotte6,
+    title: "Cagnotte Gazela",
+    desc: "Projet Tanora il Batir independance de la jeunesse malgache par la formation",
+    jours: 3,
+    participants: 52,
+    montant: 940000,
+  },
+];
+
+/* =======================
+   MAIN COMPONENT
+======================= */
 const NosCagnottes = () => {
   const [prevEl, setPrevEl] = useState(null);
   const [nextEl, setNextEl] = useState(null);
+
   const sectionRef = useRef(null);
+  const observerRef = useRef(null);
+
   const [isVisible, setIsVisible] = useState(false);
 
+  const cagnottes = useMemo(() => CAGNOTTES_DATA, []);
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    observerRef.current = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
+          observerRef.current.disconnect();
         }
       },
       { threshold: 0.15 }
     );
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+    if (sectionRef.current) {
+      observerRef.current.observe(sectionRef.current);
+    }
 
-  const cagnottes = [
-    {
-      img: imgCagnotte1,
-      title: "BAREA U23 Miara milalao",
-      desc: "Miarahaba atsika rehetra mpitia baolina kitra Malagasy",
-      jours: 12,
-      participants: 48,
-      montant: 850000,
-    },
-    {
-      img: imgCagnotte2,
-      title: "UN COUP de POUCE en pleine CRISE pour les POTES",
-      desc: "TeenKetrika.com est un site web qui a pour mission d'accompagner les jeunes",
-      jours: 20,
-      participants: 63,
-      montant: 1200000,
-    },
-    {
-      img: imgCagnotte3,
-      title: "URGENT: Soutenons Antsa pour sa greffe de moelle",
-      desc: "Je m'appelle Naly Antsaniaina RAZAFINDRALAMBO et j'ai 27 ans.",
-      jours: 8,
-      participants: 25,
-      montant: 430000,
-    },
-    {
-      img: imgCagnotte4,
-      title: "100 Livres anglais attentand à la bibliotheque à Tana !",
-      desc: "85% des jeunes malgache n'ont jamais tune un livre Ecrit entierement anglais",
-      jours: 15,
-      participants: 37,
-      montant: 610000,
-    },
-    {
-      img: imgCagnotte5,
-      title: "Sortie récréative SC",
-      desc: "On organise une petite sortie en collegue pour partager un bon moment ensemble.",
-      jours: 5,
-      participants: 19,
-      montant: 275000,
-    },
-    {
-      img: imgCagnotte6,
-      title: "Cagnotte Gazela",
-      desc: "Projet Tanora il Batir independance de la jeunesse malgache par la formation",
-      jours: 3,
-      participants: 52,
-      montant: 940000,
-    },
-  ];
+    return () => observerRef.current?.disconnect();
+  }, []);
 
   return (
     <section
@@ -131,7 +151,7 @@ const NosCagnottes = () => {
           <button
             className="nos-cagnottes__nav nos-cagnottes__nav--prev"
             aria-label="Cagnotte précédente"
-            ref={(node) => setPrevEl(node)}
+            ref={setPrevEl}
           >
             <FiChevronLeft />
           </button>
@@ -160,8 +180,10 @@ const NosCagnottes = () => {
                         src={item.img}
                         alt={item.title}
                         className="cagnotte-card__image"
+                        loading="lazy"
                       />
                     </div>
+
                     <div className="cagnotte-card__body">
                       <h4 className="cagnotte-card__title">{item.title}</h4>
                       <p className="cagnotte-card__desc">{item.desc}</p>
@@ -178,6 +200,7 @@ const NosCagnottes = () => {
                           J
                         </span>
                       </div>
+
                       <div className="cagnotte-card__stat">
                         <FiUsers className="cagnotte-card__icon" />
                         <span>
@@ -187,6 +210,7 @@ const NosCagnottes = () => {
                           />
                         </span>
                       </div>
+
                       <div className="cagnotte-card__stat">
                         <FiDollarSign className="cagnotte-card__icon" />
                         <span>
@@ -207,7 +231,7 @@ const NosCagnottes = () => {
           <button
             className="nos-cagnottes__nav nos-cagnottes__nav--next"
             aria-label="Cagnotte suivante"
-            ref={(node) => setNextEl(node)}
+            ref={setNextEl}
           >
             <FiChevronRight />
           </button>
@@ -217,4 +241,4 @@ const NosCagnottes = () => {
   );
 };
 
-export default NosCagnottes;
+export default memo(NosCagnottes);

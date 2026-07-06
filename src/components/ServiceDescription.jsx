@@ -1,6 +1,7 @@
-import BoutonSavoirPlus from "./BouttonSavoirPlus";
-import { FiArrowRight } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
+import { FiArrowRight } from "react-icons/fi";
+
+import BoutonSavoirPlus from "./BouttonSavoirPlus";
 import ServiceImage from "./ServiceImage";
 
 import "../styles/ServiceDescription.css";
@@ -8,41 +9,65 @@ import "../styles/ServiceDescription.css";
 const ServiceDescription = ({ ServiceOpenSideBarContact }) => {
   const sectionRef = useRef(null);
   const bgRef = useRef(null);
+
   const [isVisible, setIsVisible] = useState(false);
 
+  const rafRef = useRef(null);
+  const isVisibleRef = useRef(false);
+
+  /* =========================
+     VISIBILITY OBSERVER
+  ========================= */
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          isVisibleRef.current = true;
           observer.disconnect();
         }
       },
       { threshold: 0.8 }
     );
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
     return () => observer.disconnect();
   }, []);
 
-  // ===== Effet parallaxe sur l'arrière-plan =====
+  /* =========================
+     PARALLAX OPTIMISÉ (RAF)
+  ========================= */
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current || !bgRef.current) return;
+      if (!sectionRef.current || !bgRef.current || !isVisibleRef.current)
+        return;
 
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      if (rafRef.current) return;
 
-      if (rect.top < windowHeight && rect.bottom > 0) {
-       
-        const offset = rect.top * 0.3;
-        bgRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
-      }
+      rafRef.current = requestAnimationFrame(() => {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          const offset = rect.top * 0.3;
+          bgRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+        }
+
+        rafRef.current = null;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   return (
@@ -62,14 +87,18 @@ const ServiceDescription = ({ ServiceOpenSideBarContact }) => {
               <span className="service-description__badge">
                 Nos Services
               </span>
+
               <h2 className="service-description__title">
-              Une solution de collecte de fonds simple, rapide et sécurisée.
+                Une solution de collecte de fonds simple, rapide et sécurisée.
               </h2>
             </div>
 
             <div className="service-description__col-right service-description__slide-right">
               <p className="service-description__text">
-              Nous mettons à votre disposition une plateforme de cagnotte en ligne simple, rapide et sécurisée, pour vous accompagner dans tous les moments importants de la vie et faciliter la solidarité entre proches, où qu'ils se trouvent.
+                Nous mettons à votre disposition une plateforme de cagnotte en
+                ligne simple, rapide et sécurisée, pour vous accompagner dans
+                tous les moments importants de la vie et faciliter la solidarité
+                entre proches, où qu'ils se trouvent.
               </p>
 
               <BoutonSavoirPlus
@@ -77,11 +106,11 @@ const ServiceDescription = ({ ServiceOpenSideBarContact }) => {
                 onClick={() => ServiceOpenSideBarContact("contact")}
                 className="service-description__btn"
               />
-
             </div>
           </div>
         </div>
       </section>
+
       <ServiceImage />
     </>
   );

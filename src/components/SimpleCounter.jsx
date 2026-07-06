@@ -1,26 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from "react";
 
-const SimpleCounter = ({ end, text, isVisible = true, duration = 2.5 }) => {
+const SimpleCounter = ({
+  end,
+  text,
+  isVisible = true,
+  duration = 2.5,
+}) => {
   const [count, setCount] = useState(0);
+
+  const frameRef = useRef(null);
+  const startTimeRef = useRef(null);
 
   useEffect(() => {
     if (!isVisible) return;
 
-    let start = 0;
-    const increment = end / (duration * 60);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.ceil(start));
+    const durationMs = duration * 1000;
+
+    const animate = (timestamp) => {
+      if (!startTimeRef.current) {
+        startTimeRef.current = timestamp;
       }
-    }, 1000 / 60);
-    return () => clearInterval(timer);
+
+      const progress = timestamp - startTimeRef.current;
+      const percent = Math.min(progress / durationMs, 1);
+
+      const value = Math.floor(percent * end);
+
+      setCount(value);
+
+      if (percent < 1) {
+        frameRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    frameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(frameRef.current);
+      startTimeRef.current = null;
+    };
   }, [isVisible, end, duration]);
 
-  return <span>{count}{text}</span>;
-}; 
+  return (
+    <span>
+      {count}
+      {text}
+    </span>
+  );
+};
 
 export default SimpleCounter;

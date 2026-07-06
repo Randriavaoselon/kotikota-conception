@@ -9,7 +9,7 @@ import {
   PiStarBold,
   PiXLogoBold,
 } from "react-icons/pi";
-import logoKotikota from "../assets/logo.png";
+import logoKotikota from "../assets/logo.webp";
 import "../styles/Footer.css";
 
 const Footer = () => {

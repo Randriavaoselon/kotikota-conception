@@ -1,39 +1,65 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import "../styles/EtapeDevenirKotikoteur.css";
 
 const EtapeDevenirKotikoteur = () => {
-  const steps = [
-    { title: "Créez", desc: "Créez votre cagnotte en 30 secondes",  bgColor: "#fef3c7"},
-    { title: "Invitez", desc: "Invitez participants via vos réseaux sociaux", bgColor: "#fef3c7" },
-    { title: "Participez", desc: "Participez en quelques clics depuis l’onglet participer à une cagnotte ", bgColor: "#fef3c7" },
-    { title: "Transférez", desc: "les sommes collectées au bénéficiaire", bgColor: "#fef3c7" },
-  ];
+  const steps = useMemo(
+    () => [
+      { title: "Créez", desc: "Créez votre cagnotte en 30 secondes", bgColor: "#fef3c7" },
+      { title: "Invitez", desc: "Invitez participants via vos réseaux sociaux", bgColor: "#fef3c7" },
+      { title: "Participez", desc: "Participez en quelques clics depuis l’onglet participer à une cagnotte ", bgColor: "#fef3c7" },
+      { title: "Transférez", desc: "les sommes collectées au bénéficiaire", bgColor: "#fef3c7" },
+    ],
+    []
+  );
 
   const sectionRef = useRef(null);
   const bgRef = useRef(null);
   const rowRef = useRef(null);
+  const lineProgressRef = useRef(null);
   const itemRefs = useRef([]);
-  const [lineProgress, setLineProgress] = useState(0);
   const [visibleSteps, setVisibleSteps] = useState([]);
 
-  // ===== Ligne qui se dessine selon la position de scroll =====
+  // ===== Ligne de progression + parallaxe fusionnés en un seul listener, throttlé via rAF =====
   useEffect(() => {
+    const ticking = { current: false };
+
+    const updateOnScroll = () => {
+      // --- Ligne de progression : mise à jour directe du DOM (pas de setState) ---
+      if (rowRef.current && lineProgressRef.current) {
+        const rect = rowRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        const start = windowHeight * 0.85;
+        const total = rect.height + windowHeight * 0.4;
+        const scrolled = start - rect.top;
+
+        const progress = Math.min(Math.max(scrolled / total, 0), 1);
+        lineProgressRef.current.style.height = `${progress * 100}%`;
+      }
+
+      // --- Parallaxe ---
+      if (sectionRef.current && bgRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          const offset = rect.top * 0.3;
+          bgRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+        }
+      }
+
+      ticking.current = false;
+    };
+
     const handleScroll = () => {
-      if (!rowRef.current) return;
-
-      const rect = rowRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      const start = windowHeight * 0.85;
-      const total = rect.height + windowHeight * 0.4;
-      const scrolled = start - rect.top;
-
-      const progress = Math.min(Math.max(scrolled / total, 0), 1);
-      setLineProgress(progress);
+      if (!ticking.current) {
+        window.requestAnimationFrame(updateOnScroll);
+        ticking.current = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    updateOnScroll(); // valeurs initiales au montage
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -57,25 +83,6 @@ const EtapeDevenirKotikoteur = () => {
     return () => observer.disconnect();
   }, []);
 
-  // ===== Effet parallaxe sur l'arrière-plan =====
-  useEffect(() => {
-    const handleParallax = () => {
-      if (!sectionRef.current || !bgRef.current) return;
-
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      if (rect.top < windowHeight && rect.bottom > 0) {
-        const offset = rect.top * 0.3;
-        bgRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
-      }
-    };
-
-    window.addEventListener("scroll", handleParallax, { passive: true });
-    handleParallax();
-    return () => window.removeEventListener("scroll", handleParallax);
-  }, []);
-
   return (
     <section className="etape-devenir" ref={sectionRef}>
       <div className="etape-devenir__bg" ref={bgRef}></div>
@@ -85,7 +92,7 @@ const EtapeDevenirKotikoteur = () => {
           <div className="etape-devenir__line"></div>
           <div
             className="etape-devenir__line-progress"
-            style={{ height: `${lineProgress * 100}%` }}
+            ref={lineProgressRef}
           ></div>
 
           <span className="etape-devenir__line-start">

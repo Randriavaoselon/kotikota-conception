@@ -1,3 +1,4 @@
+import { memo, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 import { FaShieldAlt, FaBullseye, FaHandsHelping } from "react-icons/fa";
@@ -5,26 +6,64 @@ import { FaShieldAlt, FaBullseye, FaHandsHelping } from "react-icons/fa";
 import BoutonSavoirPlus from "./BouttonSavoirPlus";
 import "../styles/Presentation.css";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.25,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
 const Presentation = ({ onOpenSidebar }) => {
+  const containerVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.25,
+        },
+      },
+    }),
+    []
+  );
+
+  const itemVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 40 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.6,
+          ease: "easeOut",
+        },
+      },
+    }),
+    []
+  );
+
+  const handleOpenSidebar = useCallback(() => {
+    onOpenSidebar("contact");
+  }, [onOpenSidebar]);
+
+  const cards = useMemo(
+    () => [
+      {
+        icon: FaBullseye,
+        title: "Mission",
+        text: "Nous transformons les élans de générosité en soutien réel et immédiat.",
+        className: "info-card-first",
+      },
+      {
+        icon: FaHandsHelping,
+        title: "Solidarité",
+        text: "Transformez la solidarité en aide rapide et accessible à tous.",
+        className: "info-card card-bg-transparent",
+        textStyle: { color: "#f8fcfd" },
+      },
+      {
+        icon: FaShieldAlt,
+        title: "Sécurité",
+        text: "Garantissons la sécurité de vos fonds avec des systèmes de protection avancés.",
+        className: "info-card card-bg-transparent",
+        textStyle: { color: "#f8fcfd" },
+      },
+    ],
+    []
+  );
 
   return (
     <motion.section
@@ -44,9 +83,10 @@ const Presentation = ({ onOpenSidebar }) => {
               <h4 className="feature-card__title">
                 Notre Vision de l’Impact Social
               </h4>
+
               <BoutonSavoirPlus
                 icon={FiArrowRight}
-                onClick={() => onOpenSidebar("contact")}
+                onClick={handleOpenSidebar}
                 className="feature-card__link"
               />
             </div>
@@ -56,37 +96,23 @@ const Presentation = ({ onOpenSidebar }) => {
             className="presentation__col-right"
             variants={containerVariants}
           >
-            <motion.div className="info-card-first" variants={itemVariants}>
-              <FaBullseye className="info-card__icon" />
-              <h5>Mission</h5>
-              <p>
-                Nous transformons les élans de générosité en soutien réel et
-                immédiat.
-              </p>
-            </motion.div>
+            {cards.map((card, index) => {
+              const Icon = card.icon;
 
-            <motion.div
-              className="info-card card-bg-transparent"
-              variants={itemVariants}
-            >
-              <FaHandsHelping className="info-card__icon" />
-              <h5>Solidarité</h5>
-              <p style={{ color: "#f8fcfd" }}>
-                Transformez la solidarité en aide rapide et accessible à tous.
-              </p>
-            </motion.div>
+              return (
+                <motion.div
+                  key={index}
+                  className={card.className}
+                  variants={itemVariants}
+                >
+                  <Icon className="info-card__icon" />
 
-            <motion.div
-              className="info-card card-bg-transparent"
-              variants={itemVariants}
-            >
-              <FaShieldAlt className="info-card__icon" />
-              <h5>Sécurité</h5>
-              <p style={{ color: "#f8fcfd" }}>
-                Garantissons la sécurité de vos fonds avec des systèmes de
-                protection avancés.
-              </p>
-            </motion.div>
+                  <h5>{card.title}</h5>
+
+                  <p style={card.textStyle}>{card.text}</p>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </div>
@@ -94,4 +120,4 @@ const Presentation = ({ onOpenSidebar }) => {
   );
 };
 
-export default Presentation;
+export default memo(Presentation);

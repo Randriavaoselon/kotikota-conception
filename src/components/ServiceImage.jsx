@@ -8,11 +8,11 @@ import {
   FiShare2,
 } from "react-icons/fi";
 
-import imgService1 from "../assets/ImageBacgroundHero1.jpg";
-import imgService2 from "../assets/service-international.png";
-import imgService3 from "../assets/service-collectFond.png";
-import imgService4 from "../assets/service-solidaire.png";
-import imgService5 from "../assets/service-rapide.png";
+import imgService1 from "../assets/ImageBacgroundHero1.webp";
+import imgService2 from "../assets/service-international.webp";
+import imgService3 from "../assets/service-collectFond.webp";
+import imgService4 from "../assets/service-solidaire.webp";
+import imgService5 from "../assets/service-rapide.webp";
 import "../styles/ServiceImage.css";
 
 const ServiceImage = () => {

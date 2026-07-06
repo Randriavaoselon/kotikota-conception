@@ -23,9 +23,9 @@ import {
   FaChild,
   FaHandHoldingHeart,
 } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, memo } from "react";
 import BoutonSavoirPlus from "./BouttonSavoirPlus";
-import logoKoti from "../assets/logo.png";
+import logoKoti from "../assets/logo.webp";
 import "../styles/KotiKotaModal.css";
 
 const categories = [
@@ -73,6 +73,52 @@ const categories = [
   },
 ];
 
+const AccordionItem = memo(function AccordionItem({ title, Icon }) {
+  return (
+    <div className="kotikota-accordion__item">
+      <div className="kotikota-accordion__item-icon-wrap">
+        <Icon className="kotikota-accordion__item-icon" />
+      </div>
+      <p className="kotikota-accordion__item-title">{title}</p>
+    </div>
+  );
+});
+
+const AccordionCategory = memo(function AccordionCategory({
+  category,
+  isActive,
+  onToggle,
+}) {
+  return (
+    <div className={`kotikota-accordion ${isActive ? "is-open" : ""}`}>
+      <button
+        type="button"
+        className="kotikota-accordion__trigger"
+        onClick={onToggle}
+        aria-expanded={isActive}
+        aria-controls={`panel-${category.id}`}
+      >
+        <span className="kotikota-accordion__label">{category.label}</span>
+        <FiChevronDown className="kotikota-accordion__chevron" />
+      </button>
+
+      <div
+        id={`panel-${category.id}`}
+        className="kotikota-accordion__panel"
+        role="region"
+      >
+        <div className="kotikota-accordion__panel-inner">
+          <div className="kotikota-accordion__grid">
+            {category.items.map((item, i) => (
+              <AccordionItem key={i} title={item.title} Icon={item.icon} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
+
 const KotiKotaModal = ({
   isOpen,
   onClose,
@@ -81,30 +127,43 @@ const KotiKotaModal = ({
 }) => {
   const [activeCategory, setActiveCategory] = useState(null);
 
-  // Bloque le scroll du body pendant que le modal est ouvert
+
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
+
+    if (!isOpen) {
+      setActiveCategory(null);
+    }
+
     return () => {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
 
-  // Fermeture au clavier (Échap)
+  // Fermeture au clavier (Échap) — listener attaché uniquement
+  // quand le modal est ouvert.
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
     };
-    if (isOpen) window.addEventListener("keydown", handleEsc);
+
+    window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
 
-  useEffect(() => {
-    if (!isOpen) setActiveCategory(null);
-  }, [isOpen]);
-
-  const toggleCategory = (id) => {
+  const toggleCategory = useCallback((id) => {
     setActiveCategory((prev) => (prev === id ? null : id));
-  };
+  }, []);
+
+  const handleCreateClick = useCallback(() => {
+    onConnexionClick("auth");
+  }, [onConnexionClick]);
+
+  const handleContactClick = useCallback(() => {
+    if (onContactClick) onContactClick();
+  }, [onContactClick]);
 
   return (
     <>
@@ -179,74 +238,31 @@ const KotiKotaModal = ({
 
             {/* Accordéon des 3 catégories */}
             <div className="kotikota-modal__tabs">
-              {categories.map((cat) => {
-                const isActive = activeCategory === cat.id;
-                return (
-                  <div
-                    key={cat.id}
-                    className={`kotikota-accordion ${
-                      isActive ? "is-open" : ""
-                    }`}
-                  >
-                    <button
-                      type="button"
-                      className="kotikota-accordion__trigger"
-                      onClick={() => toggleCategory(cat.id)}
-                      aria-expanded={isActive}
-                      aria-controls={`panel-${cat.id}`}
-                    >
-                      <span className="kotikota-accordion__label">
-                        {cat.label}
-                      </span>
-                      <FiChevronDown className="kotikota-accordion__chevron" />
-                    </button>
-
-                    <div
-                      id={`panel-${cat.id}`}
-                      className="kotikota-accordion__panel"
-                      role="region"
-                    >
-                      <div className="kotikota-accordion__panel-inner">
-                        <div className="kotikota-accordion__grid">
-                          {cat.items.map((item, i) => {
-                            const Icon = item.icon;
-                            return (
-                              <div className="kotikota-accordion__item" key={i}>
-                                <div className="kotikota-accordion__item-icon-wrap">
-                                  <Icon className="kotikota-accordion__item-icon" />
-                                </div>
-                                <p className="kotikota-accordion__item-title">
-                                  {item.title}
-                                </p>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              {categories.map((cat) => (
+                <AccordionCategory
+                  key={cat.id}
+                  category={cat}
+                  isActive={activeCategory === cat.id}
+                  onToggle={() => toggleCategory(cat.id)}
+                />
+              ))}
             </div>
 
             {/* Boutons d'action */}
             <div className="kotikota-modal__actions">
               <BoutonSavoirPlus
                 text="Créez votre cagnotte"
-                onClick={() => onConnexionClick("auth")}
+                onClick={handleCreateClick}
                 className="kotikota-btn kotikota-btn--primary"
               />
 
               <button
                 type="button"
                 className="kotikota-btn kotikota-btn--secondary"
-                onClick={() => {
-                  if (onContactClick) onContactClick();
-                }}
+                onClick={handleContactClick}
               >
                 Contactez-nous
               </button>
-
             </div>
           </div>
         </div>
@@ -255,4 +271,4 @@ const KotiKotaModal = ({
   );
 };
 
-export default KotiKotaModal;
+export default memo(KotiKotaModal);
