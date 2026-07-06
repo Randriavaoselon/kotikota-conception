@@ -47,7 +47,6 @@ const CopyRight = () => {
             </a>
           </div>
 
-          {/* Colonne droite : crédits */}
           <div className="copyright__col-right">
             <span className="copyright__credit">
               Réalisé avec

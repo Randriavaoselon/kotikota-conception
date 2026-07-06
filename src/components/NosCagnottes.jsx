@@ -19,7 +19,6 @@ import imgCagnotte4 from "../assets/cagnotte-4.webp";
 import imgCagnotte5 from "../assets/cagnotte-5.webp";
 import imgCagnotte6 from "../assets/cagnotte-6.webp";
 
-// ===== Composant compteur animé =====
 const AnimatedNumber = ({ value, isVisible }) => {
   const [count, setCount] = useState(0);
 

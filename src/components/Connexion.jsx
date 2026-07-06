@@ -3,7 +3,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import "../styles/Connexion.css";
 
 const Connexion = () => {
-  const [mode, setMode] = useState("login"); // "login" | "signup"
+  const [mode, setMode] = useState("login");
   const [showPassword, setShowPassword] = useState(false);
 
   const isLogin = mode === "login";

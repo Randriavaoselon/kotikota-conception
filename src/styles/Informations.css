@@ -223,7 +223,6 @@
   color: #6b7280;
 }
 
-/* Image sous la description (cartes avec la propriété `image` uniquement) */
 .tarif-mini-card__image {
   width: 100%;
   height: clamp(110px, 14vw, 150px);

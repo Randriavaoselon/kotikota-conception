@@ -155,12 +155,10 @@
   transform: translateX(0) scale(1);
 }
 
-/* L'image centrale se révèle en premier, avant les cartes latérales */
 .devenir-kotikoteur--visible .devenir-kotikoteur__converge--center {
   transition-delay: 0s;
 }
 
-/* ===== Badges : effet pop après la révélation de l'image ===== */
 .devenir-kotikoteur__badge-pop {
   opacity: 0;
   transform: translateY(10px) scale(0.7);
@@ -173,7 +171,6 @@
   transform: translateY(0) scale(1);
 }
 
-/* Léger effet de flottement continu sur l'image, une fois révélée */
 .devenir-kotikoteur--visible .devenir-kotikoteur__image {
   animation: gentle-float 5s ease-in-out infinite 1s;
 }

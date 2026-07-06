@@ -207,7 +207,6 @@
 /* Responsive - Professional UX  */
 /* ============================= */
 
-/* Tablette large / petit desktop */
 @media (max-width: 1112px) and (min-width: 993px) {
     .presentation {
         padding: 64px 0;

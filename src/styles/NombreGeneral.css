@@ -193,8 +193,6 @@
       margin-top: 0;
   }
 
-  /* La 1ère carte garde le chevauchement avec la section précédente,
-     les suivantes restent à leur place naturelle */
   .eval-card:nth-child(1) {
       margin-top: -60px;
   }

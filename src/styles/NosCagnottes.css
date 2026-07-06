@@ -179,7 +179,6 @@
     transform: scale(1);
 }
 
-/* Le hover doit repartir de l'état final visible, pas de scale(0.8) */
 .nos-cagnottes--visible .nos-cagnottes__nav:hover {
     transform: translateY(-3px) scale(1);
 }

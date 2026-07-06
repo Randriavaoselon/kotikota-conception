@@ -243,9 +243,6 @@
   flex-direction: column;
 }
 
-/* .is-open gagne toujours sur les media queries grâce à la double
-   classe (spécificité plus forte) : le panneau s'ouvre correctement
-   quelle que soit sa largeur définie par ailleurs. */
 .navbar__mobile-menu.is-open {
   right: 0;
 }
