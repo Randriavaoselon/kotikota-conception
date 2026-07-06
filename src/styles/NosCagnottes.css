@@ -1,0 +1,204 @@
+.nos-cagnottes {
+    width: 100%;
+    padding: 60px 0 90px;
+    margin-top: -90px;
+    background-color: #faf9f7;
+}
+
+.nos-cagnottes .container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===== Row : boutons + slider ===== */
+.nos-cagnottes__row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nos-cagnottes__slider {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 2px 14px;
+}
+
+/* ===== Boutons de navigation ===== */
+.nos-cagnottes__nav {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+
+    background: #ffffff;
+    border: 1px solid rgba(121, 93, 168, 0.15);
+    border-radius: 50%;
+    color: #795da8;
+    font-size: 1.25rem;
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(121, 93, 168, 0.12);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.nos-cagnottes__nav:hover {
+    background: linear-gradient(135deg, #795da8 0%, #a685c9 100%);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(121, 93, 168, 0.28);
+}
+
+.nos-cagnottes__nav.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ===== Carte cagnotte ===== */
+.cagnotte-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(15, 27, 43, 0.07);
+    border: 1px solid rgba(15, 27, 43, 0.04);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1),
+        box-shadow 0.4s ease;
+}
+
+.cagnotte-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 44px rgba(121, 93, 168, 0.18);
+}
+
+/* ===== Image avec zoom léger au hover ===== */
+.cagnotte-card__image-wrap {
+    overflow: hidden;
+    position: relative;
+}
+
+.cagnotte-card__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.cagnotte-card:hover .cagnotte-card__image {
+    transform: scale(1.06);
+}
+
+/* ===== Contenu texte ===== */
+.cagnotte-card__body {
+    padding: 24px 22px 18px;
+    flex: 1;
+}
+
+.cagnotte-card__title {
+    margin: 0 0 10px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #0f1b2b;
+}
+
+.cagnotte-card__desc {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: #6b7280;
+}
+
+/* ===== Footer avec fond distinct ===== */
+.cagnotte-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 22px;
+    background-color: #f9a231;
+    border-top: 1px solid rgba(121, 93, 168, 0.12);
+}
+
+.cagnotte-card__stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4a4458;
+    border-right: 1px solid rgba(121, 93, 168, 0.18);
+}
+
+.cagnotte-card__stat:first-child {
+    padding-left: 0;
+}
+
+.cagnotte-card__stat:last-child {
+    padding-right: 0;
+    border-right: none;
+}
+
+.cagnotte-card__icon {
+    font-size: 1rem;
+    color: #795da8;
+}
+
+/* ===== Staggered reveal des cartes au scroll ===== */
+.cagnotte-card__reveal {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nos-cagnottes--visible .cagnotte-card__reveal {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Boutons de navigation : apparition légère après les cartes */
+.nos-cagnottes__nav {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s,
+        background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nos-cagnottes--visible .nos-cagnottes__nav {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Le hover doit repartir de l'état final visible, pas de scale(0.8) */
+.nos-cagnottes--visible .nos-cagnottes__nav:hover {
+    transform: translateY(-3px) scale(1);
+}
+
+/* ===== Responsivité ===== */
+@media (max-width: 700px) {
+
+    .nos-cagnottes__nav {
+        width: 42px;
+        height: 42px;
+        font-size: 1.05rem;
+    }
+
+    .cagnotte-card__stat {
+        font-size: 0.78rem;
+        padding: 0 8px;
+    }
+
+    .cagnotte-card__image {
+        height: 170px;
+    }
+}

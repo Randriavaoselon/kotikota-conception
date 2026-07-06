@@ -1,0 +1,537 @@
+.presentation {
+    padding: 80px 0;
+    background: transparent;
+    margin-top: -45px;
+}
+
+.presentation__row {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* ======= Colonne Left ============= */
+.presentation__col-left {
+    flex: 1;
+    align-self: flex-start;
+}
+
+.feature-card {
+    height: 270px;
+    padding: 36px 40px;
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    background: url('../assets/service-social.png') center/cover;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    color: white;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+
+    cursor: pointer;
+    transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.45s ease;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Overlay dégradé pour lisibilité + profondeur */
+.feature-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.05) 0%,
+            rgba(0, 0, 0, 0.35) 55%,
+            rgba(0, 0, 0, 0.75) 100%);
+    z-index: -1;
+    transition: background 0.45s ease;
+}
+
+/* Léger voile coloré au hover pour renforcer l'identité de marque */
+.feature-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(137, 92, 163, 0.25),
+            rgba(0, 0, 0, 0) 60%);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.45s ease;
+}
+
+.feature-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+}
+
+.feature-card:hover::before {
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.1) 0%,
+            rgba(0, 0, 0, 0.45) 55%,
+            rgba(0, 0, 0, 0.85) 100%);
+}
+
+.feature-card:hover::after {
+    opacity: 1;
+}
+
+.feature-card__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card__link {
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.4);
+    transition: transform 0.35s ease, color 0.35s ease, border-color 0.35s ease, gap 0.35s ease;
+}
+
+.feature-card__link svg {
+    transition: transform 0.35s ease;
+}
+
+.feature-card:hover .feature-card__link {
+    color: #f9ab2d;
+    border-color: #f9ab2d;
+    transform: translateX(6px);
+}
+
+.feature-card:hover .feature-card__link svg {
+    transform: translateX(4px);
+}
+
+
+/* ====== Colonne Right ============ */
+
+.presentation__col-right {
+    flex: 2;
+    display: flex;
+    gap: 5px;
+    background-color: #885ca3;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.info-card-first {
+    flex: 1;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.info-card-first:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-5px);
+}
+
+.info-card-first h5 {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.info-card-first p {
+    color: #d9e9de;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.info-card {
+    flex: 1;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.card-bg-transparent {
+    background-color: transparent;
+}
+
+
+.info-card__icon {
+    font-size: 2rem;
+    color: #f9ab2d;
+    margin-bottom: 15px;
+}
+
+.info-card h5 {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.info-card p {
+    font-size: 0.9rem;
+    color: #d9e9de;
+    line-height: 1.5;
+}
+
+/* ============================= */
+/* Responsive - Professional UX  */
+/* ============================= */
+
+/* Tablette large / petit desktop */
+@media (max-width: 1112px) and (min-width: 993px) {
+    .presentation {
+        padding: 64px 0;
+    }
+
+    .presentation__row {
+        gap: 28px;
+    }
+
+    .feature-card {
+        height: 250px;
+        padding: 32px 34px;
+    }
+
+    .feature-card__title {
+        font-size: 1.6rem;
+    }
+
+    .presentation__col-right {
+        padding: 24px;
+        gap: 4px;
+    }
+
+    .info-card-first,
+    .info-card {
+        padding: 24px;
+    }
+}
+
+/* Tablette portrait / grand mobile paysage */
+@media (max-width: 992px) {
+    .presentation {
+        padding: 56px 0;
+        margin-top: -30px;
+    }
+
+    .presentation__row {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .presentation__col-left {
+        width: 100%;
+    }
+
+    .feature-card {
+        height: 260px;
+        padding: 32px 36px;
+    }
+
+    .presentation__col-right {
+        flex-direction: column;
+        width: 100%;
+        gap: 16px;
+        padding: 24px;
+    }
+
+    .info-card-first,
+    .info-card {
+        padding: 26px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 834px) and (min-width: 768px) {
+    .presentation {
+        padding: 48px 0;
+    }
+
+    .presentation__row {
+        gap: 24px;
+    }
+
+    .feature-card {
+        height: 240px;
+        padding: 28px 30px;
+    }
+
+    .feature-card__title {
+        font-size: 1.55rem;
+        margin-bottom: 14px;
+    }
+
+    .feature-card__link {
+        font-size: 0.9rem;
+    }
+
+    .presentation__col-right {
+        padding: 20px;
+        gap: 14px;
+    }
+
+    .info-card-first,
+    .info-card {
+        padding: 24px;
+    }
+
+    .info-card__icon {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+
+    .info-card-first h5,
+    .info-card h5 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 767px) and (min-width: 431px) {
+    .presentation {
+        padding: 44px 0;
+    }
+
+    .presentation__row {
+        gap: 20px;
+    }
+
+    .feature-card {
+        height: 230px;
+        padding: 26px 28px;
+        border-radius: 20px;
+    }
+
+    .feature-card__title {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+    }
+
+    .feature-card__link {
+        font-size: 0.88rem;
+    }
+
+    .presentation__col-right {
+        padding: 18px;
+        gap: 12px;
+        border-radius: 18px;
+    }
+
+    .info-card-first,
+    .info-card {
+        padding: 22px;
+        border-radius: 16px;
+    }
+
+    .info-card__icon {
+        font-size: 1.7rem;
+        margin-bottom: 10px;
+    }
+
+    .info-card-first h5,
+    .info-card h5 {
+        font-size: 1.05rem;
+        margin-bottom: 8px;
+    }
+
+    .info-card-first p,
+    .info-card p {
+        font-size: 0.88rem;
+    }
+}
+
+@media (max-width: 430px) and (min-width: 391px) {
+    .presentation {
+        padding: 40px 0;
+    }
+
+    .presentation__row {
+        gap: 18px;
+    }
+
+    .feature-card {
+        height: 220px;
+        padding: 24px 24px;
+        border-radius: 18px;
+    }
+
+    .feature-card__title {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        line-height: 1.2;
+    }
+
+    .feature-card__link {
+        font-size: 0.85rem;
+        gap: 6px;
+    }
+
+    .presentation__col-right {
+        padding: 16px;
+        gap: 12px;
+        border-radius: 16px;
+    }
+
+    .info-card-first,
+    .info-card {
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    .info-card__icon {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+    }
+
+    .info-card-first h5,
+    .info-card h5 {
+        font-size: 1rem;
+        margin-bottom: 6px;
+    }
+
+    .info-card-first p,
+    .info-card p {
+        font-size: 0.85rem;
+        line-height: 1.45;
+    }
+}
+
+@media (max-width: 390px) and (min-width: 321px) {
+    .presentation {
+        padding: 36px 0;
+    }
+
+    .presentation__row {
+        gap: 16px;
+    }
+
+    .feature-card {
+        height: 210px;
+        padding: 22px 20px;
+        border-radius: 16px;
+    }
+
+    .feature-card__title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .feature-card__link {
+        font-size: 0.82rem;
+        gap: 5px;
+    }
+
+    .presentation__col-right {
+        padding: 14px;
+        gap: 10px;
+        border-radius: 14px;
+    }
+
+    .info-card-first,
+    .info-card {
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .info-card__icon {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+
+    .info-card-first h5,
+    .info-card h5 {
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+    }
+
+    .info-card-first p,
+    .info-card p {
+        font-size: 0.82rem;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 320px) {
+    .presentation {
+        padding: 32px 0;
+    }
+
+    .presentation__row {
+        gap: 14px;
+    }
+
+    .feature-card {
+        height: 200px;
+        padding: 20px 18px;
+        border-radius: 14px;
+    }
+
+    .feature-card__title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        line-height: 1.2;
+    }
+
+    .feature-card__link {
+        font-size: 0.78rem;
+        gap: 5px;
+    }
+
+    .presentation__col-right {
+        padding: 12px;
+        gap: 10px;
+        border-radius: 12px;
+    }
+
+    .info-card-first,
+    .info-card {
+        padding: 16px;
+        border-radius: 10px;
+    }
+
+    .info-card__icon {
+        font-size: 1.35rem;
+        margin-bottom: 8px;
+    }
+
+    .info-card-first h5,
+    .info-card h5 {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+    }
+
+    .info-card-first p,
+    .info-card p {
+        font-size: 0.78rem;
+        line-height: 1.4;
+    }
+}

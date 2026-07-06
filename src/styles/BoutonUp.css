@@ -1,0 +1,53 @@
+.bouton-up {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    z-index: 999;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+  
+    background: linear-gradient(135deg, #795da8 0%, #a685c9 100%);
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 1.3rem;
+    cursor: pointer;
+  
+    box-shadow: 0 10px 26px rgba(121, 93, 168, 0.35);
+  
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease, transform 0.35s ease,
+                visibility 0.35s ease, box-shadow 0.3s ease;
+  }
+  
+  .bouton-up--visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .bouton-up:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(121, 93, 168, 0.45);
+  }
+  
+  .bouton-up:active {
+    transform: translateY(-1px) scale(0.95);
+  }
+  
+  /* ===== Responsivité ===== */
+  @media (max-width: 600px) {
+    .bouton-up {
+      right: 18px;
+      bottom: 18px;
+      width: 46px;
+      height: 46px;
+      font-size: 1.15rem;
+    }
+  }

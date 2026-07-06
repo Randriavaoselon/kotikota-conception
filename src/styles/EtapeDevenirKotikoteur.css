@@ -1,0 +1,568 @@
+.etape-devenir {
+    width: 100%;
+    padding: 90px 0;
+    margin-top: -140px;
+    position: relative;
+    overflow: hidden;
+    background-color: #faf9f7;
+}
+
+/* ===== Calque d'arrière-plan parallaxe ===== */
+.etape-devenir__bg {
+    position: absolute;
+    top: -15%;
+    left: 0;
+    width: 100%;
+    height: 130%;
+    background-image: url('../assets/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
+    z-index: 0;
+}
+
+.etape-devenir .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===== Row : conteneur relatif  ===== */
+.etape-devenir__row {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-top: 50px;
+}
+
+/* ===== Ligne verticale centrale ===== */
+.etape-devenir__line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: repeating-linear-gradient(180deg,
+            #d0d5dd 0px,
+            #d0d5dd 6px,
+            transparent 6px,
+            transparent 12px);
+    z-index: 0;
+}
+
+/* ===== Titre en tête de ligne ===== */
+.etape-devenir__line-start {
+    position: absolute;
+    top: -46px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #ffffff;
+    white-space: nowrap;
+
+    background: linear-gradient(135deg, #795da8 0%, #a685c9 100%);
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(0, 86, 179, 0.25);
+}
+
+/* ===== Fin de ligne ===== */
+.etape-devenir__line-end {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    z-index: 1;
+
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border: 3px solid #795da8;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 176, 155, 0.3);
+}
+
+/* ===== Item : une étape ===== */
+.etape-devenir__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* Carte à gauche */
+.etape-devenir__item--left {
+    justify-content: flex-start;
+}
+
+.etape-devenir__item--left .etape-devenir__card {
+    width: calc(50% - 50px);
+    text-align: right;
+}
+
+/* Carte à droite */
+.etape-devenir__item--right {
+    justify-content: flex-end;
+}
+
+.etape-devenir__item--right .etape-devenir__card {
+    width: calc(50% - 50px);
+    text-align: left;
+}
+
+/* ===== Numéro central ===== */
+.etape-devenir__number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+
+    font-size: 1rem;
+    font-weight: 800;
+    color: #ffffff;
+    background: linear-gradient(135deg, #795da8 0%, #a685c9 100%);
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 6px 16px rgba(0, 86, 179, 0.3);
+}
+
+/* ===== Carte ===== */
+.etape-devenir__card {
+    padding: 26px 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.etape-devenir__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+}
+
+.etape-devenir__title {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f1b2b;
+}
+
+.etape-devenir__desc {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #5b6472;
+}
+
+/* ===== Ligne de progression qui se dessine au scroll ===== */
+.etape-devenir__line-progress {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 0%;
+    background: linear-gradient(180deg, #795da8 0%, #a685c9 100%);
+    z-index: 0;
+    transition: height 0.15s ease-out;
+    border-radius: 2px;
+}
+
+/* ===== Apparition individuelle de chaque étape ===== */
+.etape-devenir__item {
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.etape-devenir__item--left {
+    transform: translateX(-40px);
+}
+
+.etape-devenir__item--right {
+    transform: translateX(40px);
+}
+
+.etape-devenir__item--visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Le numéro apparaît avec un léger effet de "pop" après la carte */
+.etape-devenir__number {
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s;
+}
+
+.etape-devenir__item--visible .etape-devenir__number {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ============================= */
+/* Responsive - Professional UX  */
+/* ============================= */
+
+/* Tablette large / petit desktop */
+@media (max-width: 1112px) and (min-width: 993px) {
+    .etape-devenir {
+        padding: 76px 0;
+    }
+
+    .etape-devenir .container {
+        max-width: 780px;
+    }
+}
+
+/* Tablette portrait */
+@media (max-width: 992px) and (min-width: 769px) {
+    .etape-devenir {
+        padding: 64px 0;
+        margin-top: -100px;
+    }
+
+    .etape-devenir .container {
+        max-width: 680px;
+    }
+
+    .etape-devenir__row {
+        gap: 48px;
+    }
+
+    .etape-devenir__card {
+        padding: 22px 20px;
+    }
+
+    .etape-devenir__title {
+        font-size: 1.05rem;
+    }
+
+    .etape-devenir__desc {
+        font-size: 0.88rem;
+    }
+}
+
+/* Bascule en timeline verticale à gauche dès 768px */
+@media (max-width: 768px) {
+    .etape-devenir {
+        padding: 56px 0;
+        margin-top: -80px;
+    }
+
+    .etape-devenir .container {
+        padding: 0 20px;
+    }
+
+    .etape-devenir__row {
+        gap: 44px;
+        margin-top: 44px;
+    }
+
+    .etape-devenir__line {
+        left: 24px;
+        transform: none;
+    }
+
+    .etape-devenir__line-progress {
+        left: 24px;
+        transform: none;
+    }
+
+    .etape-devenir__item,
+    .etape-devenir__item--left,
+    .etape-devenir__item--right {
+        justify-content: flex-start;
+    }
+
+    .etape-devenir__item--left .etape-devenir__card,
+    .etape-devenir__item--right .etape-devenir__card {
+        width: calc(100% - 66px);
+        margin-left: 66px;
+        text-align: left;
+    }
+
+    .etape-devenir__number {
+        left: 24px;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        font-size: 0.95rem;
+    }
+
+    .etape-devenir__item--visible .etape-devenir__number {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .etape-devenir__line-start,
+    .etape-devenir__line-end {
+        left: 24px;
+        transform: translateX(-50%);
+    }
+
+    .etape-devenir__line-end {
+        transform: translate(-50%, 50%);
+    }
+
+    .etape-devenir__card {
+        padding: 22px 20px;
+    }
+}
+
+@media (max-width: 600px) and (min-width: 431px) {
+    .etape-devenir {
+        padding: 48px 0;
+        margin-top: -60px;
+    }
+
+    .etape-devenir .container {
+        padding: 0 18px;
+    }
+
+    .etape-devenir__row {
+        gap: 36px;
+    }
+
+    .etape-devenir__line,
+    .etape-devenir__line-progress {
+        left: 20px;
+    }
+
+    .etape-devenir__item--left .etape-devenir__card,
+    .etape-devenir__item--right .etape-devenir__card {
+        width: calc(100% - 56px);
+        margin-left: 56px;
+    }
+
+    .etape-devenir__number {
+        left: 20px;
+        width: 36px;
+        height: 36px;
+        font-size: 0.88rem;
+    }
+
+    .etape-devenir__line-start,
+    .etape-devenir__line-end {
+        left: 20px;
+    }
+
+    .etape-devenir__line-start {
+        font-size: 0.78rem;
+        padding: 7px 14px;
+    }
+
+    .etape-devenir__card {
+        padding: 18px 18px;
+        border-radius: 14px;
+    }
+
+    .etape-devenir__title {
+        font-size: 1rem;
+    }
+
+    .etape-devenir__desc {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 430px) and (min-width: 391px) {
+    .etape-devenir {
+        padding: 40px 0;
+        margin-top: -50px;
+    }
+
+    .etape-devenir .container {
+        padding: 0 16px;
+    }
+
+    .etape-devenir__row {
+        gap: 32px;
+    }
+
+    .etape-devenir__line,
+    .etape-devenir__line-progress {
+        left: 18px;
+    }
+
+    .etape-devenir__item--left .etape-devenir__card,
+    .etape-devenir__item--right .etape-devenir__card {
+        width: calc(100% - 48px);
+        margin-left: 48px;
+    }
+
+    .etape-devenir__number {
+        left: 18px;
+        width: 32px;
+        height: 32px;
+        font-size: 0.82rem;
+        border-width: 3px;
+    }
+
+    .etape-devenir__line-start,
+    .etape-devenir__line-end {
+        left: 18px;
+    }
+
+    .etape-devenir__line-start {
+        font-size: 0.72rem;
+        padding: 6px 12px;
+        top: -40px;
+    }
+
+    .etape-devenir__card {
+        padding: 16px 16px;
+        border-radius: 12px;
+    }
+
+    .etape-devenir__title {
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+    }
+
+    .etape-devenir__desc {
+        font-size: 0.82rem;
+        line-height: 1.45;
+    }
+}
+
+@media (max-width: 390px) and (min-width: 321px) {
+    .etape-devenir {
+        padding: 36px 0;
+        margin-top: -40px;
+    }
+
+    .etape-devenir .container {
+        padding: 0 14px;
+    }
+
+    .etape-devenir__row {
+        gap: 28px;
+    }
+
+    .etape-devenir__line,
+    .etape-devenir__line-progress {
+        left: 16px;
+    }
+
+    .etape-devenir__item--left .etape-devenir__card,
+    .etape-devenir__item--right .etape-devenir__card {
+        width: calc(100% - 42px);
+        margin-left: 42px;
+    }
+
+    .etape-devenir__number {
+        left: 16px;
+        width: 30px;
+        height: 30px;
+        font-size: 0.78rem;
+        border-width: 3px;
+    }
+
+    .etape-devenir__line-start,
+    .etape-devenir__line-end {
+        left: 16px;
+    }
+
+    .etape-devenir__line-start {
+        font-size: 0.68rem;
+        padding: 5px 11px;
+        top: -36px;
+    }
+
+    .etape-devenir__card {
+        padding: 14px 14px;
+        border-radius: 10px;
+    }
+
+    .etape-devenir__title {
+        font-size: 0.9rem;
+    }
+
+    .etape-devenir__desc {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 320px) {
+    .etape-devenir {
+        padding: 32px 0;
+        margin-top: -32px;
+    }
+
+    .etape-devenir .container {
+        padding: 0 12px;
+    }
+
+    .etape-devenir__row {
+        gap: 24px;
+    }
+
+    .etape-devenir__line,
+    .etape-devenir__line-progress {
+        left: 14px;
+    }
+
+    .etape-devenir__item--left .etape-devenir__card,
+    .etape-devenir__item--right .etape-devenir__card {
+        width: calc(100% - 36px);
+        margin-left: 36px;
+    }
+
+    .etape-devenir__number {
+        left: 14px;
+        width: 26px;
+        height: 26px;
+        font-size: 0.7rem;
+        border-width: 2px;
+    }
+
+    .etape-devenir__line-start,
+    .etape-devenir__line-end {
+        left: 14px;
+    }
+
+    .etape-devenir__line-start {
+        font-size: 0.62rem;
+        padding: 4px 10px;
+        top: -32px;
+    }
+
+    .etape-devenir__line-end {
+        width: 11px;
+        height: 11px;
+        border-width: 2px;
+    }
+
+    .etape-devenir__card {
+        padding: 12px 12px;
+        border-radius: 10px;
+    }
+
+    .etape-devenir__title {
+        font-size: 0.85rem;
+        margin-bottom: 5px;
+    }
+
+    .etape-devenir__desc {
+        font-size: 0.76rem;
+        line-height: 1.4;
+    }
+}

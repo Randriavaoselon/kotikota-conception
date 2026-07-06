@@ -1,0 +1,690 @@
+.informations {
+  width: 100%;
+  padding: 80px 0;
+  margin-top: -85px;
+  background-color: #faf9f7;
+}
+
+.informations .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== Panneau global : tabs + contenu liés visuellement ===== */
+.informations__panel {
+  background: #ffffff;
+  border: 1px solid rgba(15, 27, 43, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 27, 43, 0.05);
+}
+
+/* ===== Tabs ===== */
+.informations__tabs {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid rgba(15, 27, 43, 0.08);
+  background: #faf9fb;
+}
+
+.informations__tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex: 1;
+  padding: 18px 26px;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #9aa1ab;
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(15, 27, 43, 0.08);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.informations__tab:last-child {
+  border-right: none;
+}
+
+.informations__tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: #b3b8c2;
+  background: rgba(15, 27, 43, 0.04);
+  border-radius: 10px;
+  transition: background 0.35s ease, color 0.35s ease,
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.informations__tab:hover {
+  color: #5b6472;
+}
+
+.informations__tab:hover .informations__tab-icon {
+  transform: translateY(-1px);
+}
+
+.informations__tab--active {
+  color: #0f1b2b;
+  font-weight: 700;
+  background: #ffffff;
+  position: relative;
+}
+
+.informations__tab--active .informations__tab-icon {
+  color: #ffffff;
+  background: linear-gradient(135deg, #795da8 0%, #a685c9 100%);
+  box-shadow: 0 6px 14px rgba(121, 93, 168, 0.35);
+  transform: scale(1.08);
+}
+
+/* Indicateur d'onglet qui glisse */
+.informations__tab-indicator {
+  position: absolute;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, #795da8 0%, #a685c9 100%);
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1),
+    width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+}
+
+/* ===== Contenu ===== */
+.informations__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px;
+}
+
+/* ===== Ligne 1 : bannière pleine largeur ===== */
+.tarif-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px 36px;
+
+  background: linear-gradient(135deg, rgba(121, 93, 168, 0.06) 0%, rgba(166, 133, 201, 0.1) 100%);
+  border: 1px solid rgba(121, 93, 168, 0.15);
+  border-radius: 18px;
+}
+
+.tarif-banner__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.tarif-banner__title {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0f1b2b;
+}
+
+.tarif-banner__desc {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #5b6472;
+}
+
+.tarif-banner__btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(90deg, #795da8 0%, #a685c9 100%);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(121, 93, 168, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarif-banner__btn svg {
+  transition: transform 0.3s ease;
+}
+
+.tarif-banner__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(121, 93, 168, 0.35);
+}
+
+.tarif-banner__btn:hover svg {
+  transform: translateX(3px);
+}
+
+/* ===== Ligne 2 : 3 cartes horizontales bien espacées ===== */
+.tarif-grid {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.tarif-mini-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 26px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 27, 43, 0.07);
+  border-radius: 16px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.tarif-mini-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(121, 93, 168, 0.12);
+  border-color: rgba(121, 93, 168, 0.2);
+}
+
+.tarif-mini-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 18px;
+  font-size: 1.25rem;
+  color: #795da8;
+  background: rgba(121, 93, 168, 0.08);
+  border-radius: 50%;
+}
+
+.tarif-mini-card__title {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f1b2b;
+}
+
+.tarif-mini-card__desc {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+/* Image sous la description (cartes avec la propriété `image` uniquement) */
+.tarif-mini-card__image {
+  width: 100%;
+  height: clamp(110px, 14vw, 150px);
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: clamp(12px, 1.8vw, 18px);
+  display: block;
+  flex-shrink: 0;
+}
+
+/* =====================================================================
+   ACCORDÉON SÉCURITÉ
+   ===================================================================== */
+.securite-accordion {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.securite-item {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 24px 22px;
+
+  background: #faf9fb;
+  border: 1px solid rgba(15, 27, 43, 0.07);
+  border-radius: 18px;
+  cursor: pointer;
+
+  transition: flex 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+    background 0.4s ease, border-color 0.4s ease;
+}
+
+.securite-item--active {
+  flex: 2.4;
+  background: #ffffff;
+  border-color: rgba(121, 93, 168, 0.2);
+  box-shadow: 0 20px 40px rgba(121, 93, 168, 0.14);
+}
+
+.securite-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.securite-item__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  color: #795da8;
+  background: rgba(121, 93, 168, 0.08);
+  border-radius: 12px;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.securite-item--active .securite-item__icon {
+  color: #ffffff;
+  background: linear-gradient(135deg, #795da8 0%, #a685c9 100%);
+  box-shadow: 0 8px 18px rgba(121, 93, 168, 0.3);
+}
+
+.securite-item__number {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(15, 27, 43, 0.2);
+  letter-spacing: 0.05em;
+}
+
+.securite-item--active .securite-item__number {
+  color: rgba(121, 93, 168, 0.4);
+}
+
+.securite-item__title--short {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f1b2b;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.securite-item__title {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f1b2b;
+  line-height: 1.4;
+}
+
+.securite-item__desc-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.securite-item--active .securite-item__desc-wrap {
+  grid-template-rows: 1fr;
+}
+
+.securite-item__desc-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.securite-item__desc {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #6b7280;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.securite-item--active .securite-item__desc {
+  opacity: 1;
+  transition: opacity 0.35s ease 0.15s;
+}
+
+/* Image sous la description, uniquement visible quand la carte est active */
+.securite-item__image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 14px;
+  display: block;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.securite-item--active .securite-item__image {
+  opacity: 1;
+  transition: opacity 0.35s ease 0.2s;
+}
+
+/* =====================================================================
+   FAQ : 4 colonnes horizontales, hauteur uniforme avec scroll interne
+   ===================================================================== */
+.faq-grid {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.faq-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 20px;
+  background: #faf9fb;
+  border: 1px solid rgba(15, 27, 43, 0.07);
+  border-radius: 18px;
+}
+
+.faq-col__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(15, 27, 43, 0.08);
+  flex-shrink: 0;
+}
+
+.faq-col__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #795da8 0%, #a685c9 100%);
+  border-radius: 11px;
+  box-shadow: 0 6px 14px rgba(121, 93, 168, 0.28);
+}
+
+.faq-col__title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #0f1b2b;
+}
+
+.faq-col__list {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Zone scrollable : hauteur fixe, garde les 4 colonnes uniformes
+   même si le nombre de questions varie fortement d'une catégorie à l'autre */
+.faq-col__list-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+
+.faq-col:hover .faq-col__list-scroll {
+  scrollbar-color: rgba(121, 93, 168, 0.4) transparent;
+}
+
+.faq-col__list-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.faq-col__list-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.faq-col__list-scroll::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.faq-col:hover .faq-col__list-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(121, 93, 168, 0.4);
+}
+
+.faq-col:hover .faq-col__list-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(121, 93, 168, 0.65);
+}
+
+.faq-item {
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 27, 43, 0.06);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-item--open {
+  border-color: rgba(121, 93, 168, 0.25);
+  box-shadow: 0 6px 16px rgba(121, 93, 168, 0.1);
+}
+
+.faq-item__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 16px;
+
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #2b2f38;
+  line-height: 1.4;
+}
+
+.faq-item--open .faq-item__question {
+  color: #795da8;
+}
+
+.faq-item__toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  font-size: 0.7rem;
+  color: #795da8;
+  background: rgba(121, 93, 168, 0.1);
+  border-radius: 50%;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.faq-item--open .faq-item__toggle {
+  background: linear-gradient(135deg, #795da8 0%, #a685c9 100%);
+  color: #ffffff;
+}
+
+.faq-item__answer-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-item--open .faq-item__answer-wrap {
+  grid-template-rows: 1fr;
+}
+
+.faq-item__answer-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.faq-item__answer {
+  margin: 0;
+  padding: 0 16px 12px;
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+.faq-item__answer:first-child {
+  padding-top: 2px;
+}
+
+.faq-item__answer:last-child {
+  padding-bottom: 16px;
+}
+
+/* ===== Entrée de la section au scroll ===== */
+.informations__panel {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.informations--visible .informations__panel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Transition de contenu au changement d'onglet ===== */
+.informations__content--enter {
+  animation: content-fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Apparition en cascade des éléments internes de chaque onglet ===== */
+.informations__stagger {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: stagger-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes stagger-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Responsivité ===== */
+@media (max-width: 1100px) {
+  .faq-grid {
+    flex-wrap: wrap;
+  }
+
+  .faq-col {
+    flex: 1 1 calc(50% - 10px);
+  }
+}
+
+@media (max-width: 900px) {
+  .informations__tabs {
+    flex-wrap: wrap;
+  }
+
+  .informations__tab {
+    flex: 1 1 50%;
+    border-right: none;
+    border-bottom: 1px solid rgba(15, 27, 43, 0.08);
+    padding: 14px 16px;
+    font-size: 0.85rem;
+  }
+
+  .tarif-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .tarif-banner__btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tarif-grid {
+    flex-direction: column;
+  }
+
+  .tarif-mini-card__image {
+    height: 160px;
+  }
+
+  .securite-accordion {
+    flex-direction: column;
+  }
+
+  .securite-item {
+    flex: none !important;
+  }
+
+  .securite-item__title--short {
+    white-space: normal;
+  }
+
+  .securite-item__image {
+    height: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .faq-col {
+    flex: 1 1 100%;
+  }
+
+  .faq-col__list-scroll {
+    max-height: 320px;
+  }
+}
+
+@media (max-width: 500px) {
+  .informations__content {
+    padding: 24px;
+  }
+
+  .tarif-banner {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 430px) {
+  .tarif-mini-card__image {
+    height: 140px;
+    margin-top: 14px;
+  }
+}

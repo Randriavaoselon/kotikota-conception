@@ -1,0 +1,164 @@
+.form-contact {
+    --ink: #1a2332;
+    --ink-soft: #4a5468;
+    --line: #e2e5ec;
+    --surface: #ffffff;
+    --bg: #f6f7f9;
+    --accent: #b8873f;
+    --accent-soft: #f3ead9;
+    --radius: 10px;
+  
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 0;
+  }
+  
+  .form-contact .container {
+    max-width: 100%;
+    margin: 0;
+  }
+  
+  /* Plus de carte flottante : on est déjà dans la sidebar */
+  .form-row {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  
+  .form-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  
+  .form-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  
+  .form-subtitle {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    line-height: 1.5;
+  }
+  
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  /* La sidebar est étroite : on empile toujours nom/email */
+  .form-group-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  
+  .form-group {
+    position: relative;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 14px 8px;
+    font-size: 14px;
+    color: var(--ink);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    resize: none;
+  }
+  
+  .form-group textarea {
+    min-height: 110px;
+    padding-top: 22px;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    background: var(--surface);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  
+  .form-group label {
+    position: absolute;
+    left: 15px;
+    top: 16px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    pointer-events: none;
+    transform-origin: left top;
+    transition: transform 0.16s ease, color 0.16s ease, top 0.16s ease;
+  }
+  
+  .form-group input:focus + label,
+  .form-group input:not(:placeholder-shown) + label,
+  .form-group textarea:focus + label,
+  .form-group textarea:not(:placeholder-shown) + label {
+    top: 7px;
+    transform: scale(0.8);
+    color: var(--accent);
+  }
+  
+  .btn-send {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 14px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+    margin-top: 4px;
+  }
+  
+  .btn-send svg {
+    transition: transform 0.18s ease;
+    flex-shrink: 0;
+  }
+  
+  .btn-send:hover {
+    background: #0f1620;
+    box-shadow: 0 8px 20px -8px rgba(20, 24, 33, 0.4);
+    transform: translateY(-1px);
+  }
+  
+  .btn-send:hover svg {
+    transform: translateX(3px);
+  }
+  
+  .btn-send:active {
+    transform: translateY(0);
+  }
+  
+  @media (max-width: 380px) {
+    .form-title {
+      font-size: 20px;
+    }
+  }

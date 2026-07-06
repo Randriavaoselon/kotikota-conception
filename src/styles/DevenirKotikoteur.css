@@ -1,0 +1,560 @@
+.devenir-kotikoteur {
+  width: 100%;
+  padding: 100px 0 120px;
+  margin-top: -140px;
+  background-color: #faf9f7;
+}
+
+.devenir-kotikoteur .container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== Row : 3 colonnes ===== */
+.devenir-kotikoteur__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ===== Colonnes latérales ===== */
+.devenir-kotikoteur__col-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 300px;
+}
+
+.devenir-kotikoteur__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 24px 22px;
+  background: #f0a74f;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.devenir-kotikoteur__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Contenu texte (gauche) ===== */
+.devenir-kotikoteur__card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.devenir-kotikoteur__card-title {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f1b2b;
+}
+
+.devenir-kotikoteur__card-desc {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #5b6472;
+}
+
+/* ===== Colonne centrale : image ===== */
+.devenir-kotikoteur__col-center {
+  flex: 1.4;
+  display: flex;
+  justify-content: center;
+}
+
+.devenir-kotikoteur__image-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+
+.devenir-kotikoteur__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  display: block;
+
+}
+
+/* ===== Badges sur le bord inférieur de l'image ===== */
+.devenir-kotikoteur__badges {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: calc(100% - 20px);
+  padding: 14px 18px;
+
+  background: #9463a7;
+  border-radius: 999px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+}
+
+.devenir-kotikoteur__badge {
+  padding: 7px 16px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(228, 178, 102, 0.486);
+  border: 1px solid rgba(243, 245, 248, 0.15);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ===== Image (droite) ===== */
+.devenir-kotikoteur__card-img {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 14px;
+  background: rgba(0, 86, 179, 0.06);
+}
+
+/* ===== Convergence vers le point focal (image centrale) ===== */
+.devenir-kotikoteur__converge {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.devenir-kotikoteur__converge--left {
+  transform: translateX(-50px);
+}
+
+.devenir-kotikoteur__converge--right {
+  transform: translateX(50px);
+}
+
+.devenir-kotikoteur__converge--center {
+  transform: scale(0.9);
+}
+
+.devenir-kotikoteur--visible .devenir-kotikoteur__converge {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* L'image centrale se révèle en premier, avant les cartes latérales */
+.devenir-kotikoteur--visible .devenir-kotikoteur__converge--center {
+  transition-delay: 0s;
+}
+
+/* ===== Badges : effet pop après la révélation de l'image ===== */
+.devenir-kotikoteur__badge-pop {
+  opacity: 0;
+  transform: translateY(10px) scale(0.7);
+  transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.devenir-kotikoteur--visible .devenir-kotikoteur__badge-pop {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Léger effet de flottement continu sur l'image, une fois révélée */
+.devenir-kotikoteur--visible .devenir-kotikoteur__image {
+  animation: gentle-float 5s ease-in-out infinite 1s;
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ============================= */
+/* Responsive - Professional UX  */
+/* ============================= */
+
+/* Tablette large / petit desktop */
+@media (max-width: 1112px) and (min-width: 1101px) {
+  .devenir-kotikoteur {
+    padding: 88px 0 100px;
+  }
+
+  .devenir-kotikoteur__col-side {
+    max-width: 260px;
+  }
+
+  .devenir-kotikoteur__image-wrap {
+    max-width: 380px;
+  }
+}
+
+/* Passage en grille empilée : image au centre en premier */
+@media (max-width: 1100px) and (min-width: 993px) {
+  .devenir-kotikoteur {
+    padding: 80px 0 90px;
+    margin-top: -100px;
+  }
+
+  .devenir-kotikoteur__row {
+    flex-wrap: wrap;
+  }
+
+  .devenir-kotikoteur__col-side {
+    flex: 1 1 45%;
+    max-width: none;
+  }
+
+  .devenir-kotikoteur__col-center {
+    order: -1;
+    flex: 1 1 100%;
+    margin-bottom: 44px;
+  }
+
+  .devenir-kotikoteur__image-wrap {
+    max-width: 460px;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 769px) {
+  .devenir-kotikoteur {
+    padding: 64px 0 80px;
+    margin-top: -80px;
+  }
+
+  .devenir-kotikoteur .container {
+    padding: 0 20px;
+  }
+
+  .devenir-kotikoteur__row {
+    flex-wrap: wrap;
+  }
+
+  .devenir-kotikoteur__col-side {
+    flex: 1 1 45%;
+    max-width: none;
+    gap: 20px;
+  }
+
+  .devenir-kotikoteur__col-center {
+    order: -1;
+    flex: 1 1 100%;
+    margin-bottom: 40px;
+  }
+
+  .devenir-kotikoteur__image-wrap {
+    max-width: 420px;
+  }
+
+  .devenir-kotikoteur__card {
+    padding: 20px 18px;
+  }
+
+  .devenir-kotikoteur__card-title {
+    font-size: 1.05rem;
+  }
+
+  .devenir-kotikoteur__card-desc {
+    font-size: 0.85rem;
+  }
+
+  .devenir-kotikoteur__card-img {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* Bascule mobile : cartes en pleine largeur, empilées */
+@media (max-width: 768px) {
+  .devenir-kotikoteur {
+    padding: 56px 0 64px;
+    margin-top: -60px;
+  }
+
+  .devenir-kotikoteur .container {
+    padding: 0 18px;
+  }
+
+  .devenir-kotikoteur__row {
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .devenir-kotikoteur__col-side {
+    flex: 1 1 100%;
+    max-width: none;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .devenir-kotikoteur__col-center {
+    order: -1;
+    flex: 1 1 100%;
+    margin-bottom: 0;
+  }
+
+  .devenir-kotikoteur__image-wrap {
+    max-width: 420px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .devenir-kotikoteur__image {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .devenir-kotikoteur__badges {
+    flex-wrap: wrap;
+    border-radius: 20px;
+    width: calc(100% - 16px);
+    padding: 12px 14px;
+    gap: 8px;
+  }
+
+  .devenir-kotikoteur__badge {
+    font-size: 0.74rem;
+    padding: 6px 13px;
+  }
+
+  .devenir-kotikoteur__card {
+    padding: 20px 18px;
+  }
+}
+
+@media (max-width: 600px) and (min-width: 431px) {
+  .devenir-kotikoteur {
+    padding: 48px 0 56px;
+    margin-top: -48px;
+  }
+
+  .devenir-kotikoteur__row {
+    gap: 28px;
+  }
+
+  .devenir-kotikoteur__col-side {
+    gap: 16px;
+  }
+
+  .devenir-kotikoteur__image-wrap {
+    width: 92%;
+  }
+
+  .devenir-kotikoteur__card {
+    padding: 18px 16px;
+  }
+
+  .devenir-kotikoteur__card-title {
+    font-size: 1rem;
+  }
+
+  .devenir-kotikoteur__card-desc {
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .devenir-kotikoteur__card-img {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+  }
+
+  .devenir-kotikoteur__badges {
+    padding: 11px 12px;
+    gap: 7px;
+  }
+
+  .devenir-kotikoteur__badge {
+    font-size: 0.7rem;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 430px) and (min-width: 391px) {
+  .devenir-kotikoteur {
+    padding: 40px 0 48px;
+    margin-top: -40px;
+  }
+
+  .devenir-kotikoteur .container {
+    padding: 0 16px;
+  }
+
+  .devenir-kotikoteur__row {
+    gap: 24px;
+  }
+
+  .devenir-kotikoteur__col-side {
+    gap: 14px;
+    flex-direction: column;
+  }
+
+  .devenir-kotikoteur__image-wrap {
+    width: 94%;
+    max-width: 360px;
+  }
+
+  .devenir-kotikoteur__card {
+    padding: 16px 14px;
+    border-radius: 16px;
+    gap: 12px;
+  }
+
+  .devenir-kotikoteur__card-title {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+
+  .devenir-kotikoteur__card-desc {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .devenir-kotikoteur__card-img {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+  }
+
+  .devenir-kotikoteur__badges {
+    padding: 10px 12px;
+    gap: 6px;
+    border-radius: 18px;
+  }
+
+  .devenir-kotikoteur__badge {
+    font-size: 0.66rem;
+    padding: 5px 11px;
+  }
+}
+
+@media (max-width: 390px) and (min-width: 321px) {
+  .devenir-kotikoteur {
+    padding: 36px 0 40px;
+    margin-top: -32px;
+  }
+
+  .devenir-kotikoteur .container {
+    padding: 0 14px;
+  }
+
+  .devenir-kotikoteur__row {
+    gap: 20px;
+  }
+
+  .devenir-kotikoteur__col-side {
+    gap: 12px;
+  }
+
+  .devenir-kotikoteur__image-wrap {
+    width: 96%;
+    max-width: 320px;
+  }
+
+  .devenir-kotikoteur__card {
+    padding: 14px 12px;
+    border-radius: 14px;
+    gap: 10px;
+  }
+
+  .devenir-kotikoteur__card-title {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+
+  .devenir-kotikoteur__card-desc {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .devenir-kotikoteur__card-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+  }
+
+  .devenir-kotikoteur__badges {
+    padding: 9px 10px;
+    gap: 6px;
+    border-radius: 16px;
+  }
+
+  .devenir-kotikoteur__badge {
+    font-size: 0.62rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  .devenir-kotikoteur {
+    padding: 32px 0 36px;
+    margin-top: -24px;
+  }
+
+  .devenir-kotikoteur .container {
+    padding: 0 12px;
+  }
+
+  .devenir-kotikoteur__row {
+    gap: 18px;
+  }
+
+  .devenir-kotikoteur__col-side {
+    gap: 10px;
+  }
+
+  .devenir-kotikoteur__image-wrap {
+    width: 98%;
+    max-width: 280px;
+  }
+
+  .devenir-kotikoteur__card {
+    padding: 12px 10px;
+    border-radius: 12px;
+    gap: 8px;
+  }
+
+  .devenir-kotikoteur__card-title {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+
+  .devenir-kotikoteur__card-desc {
+    font-size: 0.74rem;
+    line-height: 1.4;
+  }
+
+  .devenir-kotikoteur__card-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+
+  .devenir-kotikoteur__badges {
+    padding: 8px 8px;
+    gap: 5px;
+    border-radius: 14px;
+  }
+
+  .devenir-kotikoteur__badge {
+    font-size: 0.58rem;
+    padding: 4px 9px;
+  }
+}

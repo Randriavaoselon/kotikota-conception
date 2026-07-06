@@ -1,0 +1,332 @@
+.service-image {
+  width: 100%;
+  padding: 80px 0;
+  margin-top: -95px;
+  /* background-color: #faf9f7; */
+  background: transparent;
+}
+
+.service-image .container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== Row : colonnes alignées horizontalement ===== */
+.service-image__row {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.service-image__col {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== Carte image ===== */
+.service-image__card {
+  position: relative;
+  height: 250px;
+  border-radius: 20px;
+  background: #eef1f5;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.service-image__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+.service-image__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.service-image__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.service-image__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0) 40%,
+      rgba(0, 0, 0, 0.65) 100%);
+  pointer-events: none;
+}
+
+.service-image__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0) 40%,
+      rgba(0, 0, 0, 0.65) 100%);
+  pointer-events: none;
+}
+
+/* ===== Overlay : groupe icône + sous-titre + description ===== */
+.service-image__overlay {
+  position: absolute;
+  left: 0;
+  right: 16px;
+  bottom: 16px;
+  padding: 18px 18px 16px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1;
+}
+
+.service-image__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-image__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+}
+
+.service-image__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.service-image__desc {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ===== Colonne bouton "Voir plus" ===== */
+.service-image__col--btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 90px;
+}
+
+.service-image__more-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%);
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 184, 15);
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+
+  animation: pulse-glow 2.2s ease-in-out infinite;
+}
+
+
+.service-image__more-btn svg {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.service-image__more-btn:hover {
+  background: rgba(148, 99, 167);
+  transform: translate(50%, -50%) scale(1.08);
+  animation-play-state: paused;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+}
+
+.service-image__more-btn:hover svg {
+  transform: translateY(2px);
+}
+
+/* ===== Texte du bouton  ===== */
+.service-image__more-text {
+  display: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ===== Animation Card Stack au scroll ===== */
+
+
+.service-image__stack {
+  opacity: 0;
+  transform: translateX(-140%) translateY(20px) rotate(-8deg) scale(0.85);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center bottom;
+}
+
+/* Empilement initial : chaque carte légèrement décalée/tournée derrière la précédente */
+.service-image__stack:nth-child(1) {
+  transform: translateX(-140%) translateY(20px) rotate(-10deg) scale(0.82);
+}
+
+.service-image__stack:nth-child(2) {
+  transform: translateX(-140%) translateY(14px) rotate(-6deg) scale(0.86);
+}
+
+.service-image__stack:nth-child(3) {
+  transform: translateX(-140%) translateY(8px) rotate(-3deg) scale(0.9);
+}
+
+.service-image__stack:nth-child(4) {
+  transform: translateX(-140%) translateY(0) rotate(0deg) scale(0.94);
+}
+
+.service-image__stack:nth-child(5) {
+  transform: translateX(-140%) translateY(-6px) rotate(3deg) scale(0.98);
+}
+
+/* Position finale : déployées en grille normale */
+.service-image--visible .service-image__stack {
+  opacity: 1;
+  transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+}
+
+/* ===== Animation de pulsation ===== */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15),
+      0 0 0 0 rgba(255, 255, 255, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15),
+      0 0 0 10px rgba(255, 255, 255, 0);
+  }
+}
+
+/* ===== Responsivité ===== */
+@media (max-width: 1100px) {
+  .service-image__row {
+    flex-wrap: wrap;
+  }
+
+  .service-image__col {
+    flex: 1 1 calc(50% - 10px);
+  }
+
+  .service-image__col--btn {
+    flex: 1 1 100%;
+    order: 5;
+  }
+
+  .service-image__more-btn {
+    top: auto;
+    bottom: 16px;
+    right: 16px;
+    transform: none;
+  }
+
+  .service-image__more-btn:hover {
+    transform: scale(1.08);
+  }
+}
+
+/* Bascule en bandeau pleine largeur dès que les cartes s'empilent en colonne unique */
+@media (max-width: 600px) {
+  .service-image__col {
+    flex: 1 1 100%;
+  }
+
+  .service-image__card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-image__more-btn {
+    position: static;
+    width: 100%;
+    height: 52px;
+    margin-top: 12px;
+    border-radius: 14px;
+    flex-direction: row;
+    gap: 10px;
+    transform: none;
+    animation: none;
+    background: linear-gradient(90deg, #795da8 0%, #a685c9 100%);
+    border: none;
+    box-shadow: 0 8px 20px rgba(121, 93, 168, 0.25);
+  }
+
+  .service-image__more-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(121, 93, 168, 0.35);
+    background: linear-gradient(90deg, #795da8 0%, #a685c9 100%);
+  }
+
+  .service-image__more-text {
+    display: inline-block;
+  }
+
+  .service-image__more-btn svg {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .service-image__more-btn {
+    height: 48px;
+  }
+
+  .service-image__more-text {
+    font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .service-image__more-btn {
+    height: 44px;
+  }
+
+  .service-image__more-text {
+    font-size: 0.8rem;
+  }
+}

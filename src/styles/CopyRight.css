@@ -1,0 +1,113 @@
+.copyright {
+    width: 100%;
+    padding: 22px 0;
+    background: rgba(43, 9, 71, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .copyright .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  
+  /* ===== Row : 2 colonnes ===== */
+  .copyright__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  /* ===== Colonne gauche ===== */
+  .copyright__col-left {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+  }
+  
+  .copyright__text {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+    white-space: nowrap;
+  }
+  
+  .copyright__link {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+  }
+  
+  .copyright__link:hover {
+    color: #a685c9;
+  }
+  
+  /* ===== Colonne droite ===== */
+  .copyright__col-right {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+  
+  .copyright__credit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+    white-space: nowrap;
+  }
+  
+  .copyright__credit .copyright__link {
+    margin-left: 2px;
+  }
+  
+  .copyright__separator {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.35);
+  }
+  
+  .copyright__icon {
+    font-size: 0.85rem;
+  }
+  
+  .copyright__icon--heart {
+    color: #e0577a;
+  }
+  
+  .copyright__icon--bolt {
+    color: #f9ab2d;
+  }
+  
+  /* ===== Responsivité ===== */
+  @media (max-width: 900px) {
+    .copyright__row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+  
+    .copyright__col-left,
+    .copyright__col-right {
+      justify-content: flex-start;
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .copyright__col-left,
+    .copyright__col-right {
+      gap: 6px 14px;
+    }
+  
+    .copyright__text,
+    .copyright__link,
+    .copyright__credit,
+    .copyright__separator {
+      font-size: 0.78rem;
+    }
+  }
