@@ -1,20 +1,12 @@
-<<<<<<< HEAD
-# kotikota-conception
-=======
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Technologies utilisées et choix de conception 
 
-Currently, two official plugins are available:
+Pour la réalisation de ce projet, j'ai utilisé React.js comme framework principal, avec JSX pour la création des interfaces et CSS pour la mise en forme.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+J'ai choisi React.js car il permet de développer une application de manière modulaire grâce à des composants réutilisables et à l'utilisation des props. Cette approche facilite l'organisation du code, améliore sa maintenabilité et permet de faire évoluer le projet plus facilement.
 
-## React Compiler
+Pour la partie design, j'ai privilégié CSS plutôt que Tailwind CSS. Ce choix m'offre un contrôle plus précis sur la mise en page, les animations et les interactions, tout en conservant une structure de styles claire et facilement personnalisable.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Le design a été conçu autour de l'identité de KotiKota, en mettant en avant une image moderne, chaleureuse et professionnelle. Le thème repose sur une palette de couleurs cohérente, des animations légères et une interface épurée afin de renforcer la crédibilité de la marque et de créer une expérience visuelle agréable.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
->>>>>>> dd04214 (version1 06/07/26)
+Enfin, la conception de l'interface est orientée vers l'expérience utilisateur (UX). L'objectif est de proposer une navigation fluide, intuitive et rapide, avec une hiérarchie visuelle claire, un affichage responsive sur tous les appareils et des interactions naturelles permettant aux visiteurs d'accéder facilement aux informations essentielles.
