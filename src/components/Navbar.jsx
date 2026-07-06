@@ -154,10 +154,6 @@ const Navbar = ({ onOpenSidebar }) => {
           <li>
             <a
               href="#funds"
-              onClick={(e) => {
-                e.preventDefault();
-                handleOpenSidebar("auth");
-              }}
             >
               Toutes les cagnottes
             </a>
@@ -166,7 +162,10 @@ const Navbar = ({ onOpenSidebar }) => {
           <li>
             <a
               href="#create"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                handleOpenSidebar("auth");
+              }}
             >
               Créer ma cagnotte
             </a>
