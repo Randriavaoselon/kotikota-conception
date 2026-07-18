@@ -10,3 +10,4 @@ Pour la partie design, j'ai privilégié CSS plutôt que Tailwind CSS. Ce choix 
 Le design a été conçu autour de l'identité de KotiKota, en mettant en avant une image moderne, chaleureuse et professionnelle. Le thème repose sur une palette de couleurs cohérente, des animations légères et une interface épurée afin de renforcer la crédibilité de la marque et de créer une expérience visuelle agréable.
 
 Enfin, la conception de l'interface est orientée vers l'expérience utilisateur (UX). L'objectif est de proposer une navigation fluide, intuitive et rapide, avec une hiérarchie visuelle claire, un affichage responsive sur tous les appareils et des interactions naturelles permettant aux visiteurs d'accéder facilement aux informations essentielles.
+Consulter : https://avenir-tech.netlify.app/
